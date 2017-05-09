@@ -39,6 +39,7 @@ namespace Prompt.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<RichTextViewModel>();
         }
 
         /// <summary>
@@ -53,6 +54,11 @@ namespace Prompt.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
+        }
+
+        public RichTextViewModel RichText
+        {
+            get { return ServiceLocator.Current.GetInstance<RichTextViewModel>(); }
         }
 
         /// <summary>
