@@ -18,9 +18,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <yz:ColorPicker
-            SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ColorPicker}, Mode=TwoWay}"
-            LastColor="{Binding LastColor, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ColorPicker}}" />
+        <yz:ColorPicker LastColor="{Binding LastColor, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ColorPicker}}" SelectedColor="{Binding SelectedColor, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ColorPicker}, Mode=TwoWay}" />
         <StackPanel
             Grid.Row="1"
             Height="30"
@@ -29,8 +27,8 @@
             <Button
                 Width="75"
                 Margin="4"
-                Content="Okay"
                 Click="ButtonBase_OnClick"
+                Content="Okay"
                 IsDefault="True" />
             <Button
                 Width="75"

@@ -28,16 +28,59 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
 // THE POSSIBILITY OF SUCH DAMAGE.
+
 namespace Prompt.View.Converters
 {
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Media;
 
+    /// <summary>
+    ///     Class Static.
+    /// </summary>
     public static class Static
     {
-        public static IValueConverter BoolToVisibleOrCollapsed => new ValueConverter<bool, Visibility>(
-            e=> e.Value ? Visibility.Visible : Visibility.Collapsed);
+        /// <summary>
+        ///     Gets the bool to collapsed or visible.
+        /// </summary>
+        /// <value>The bool to collapsed or visible.</value>
         public static IValueConverter BoolToCollapsedOrVisible => new ValueConverter<bool, Visibility>(
-            e=> e.Value ? Visibility.Collapsed : Visibility.Visible);
+            e => e.Value ? Visibility.Collapsed : Visibility.Visible);
+
+        /// <summary>
+        ///     Gets the bool to enabled or disabled brush.
+        /// </summary>
+        /// <value>The bool to enabled or disabled brush.</value>
+        public static IValueConverter BoolToEnabledOrDisabledBrush => new ValueConverter<bool, SolidColorBrush>(
+            e => e.Value ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.DarkGray));
+
+        /// <summary>
+        ///     Gets the bool to visible or collapsed.
+        /// </summary>
+        /// <value>The bool to visible or collapsed.</value>
+        public static IValueConverter BoolToVisibleOrCollapsed => new ValueConverter<bool, Visibility>(
+            e => e.Value ? Visibility.Visible : Visibility.Collapsed);
+
+        /// <summary>
+        ///     Gets the color to solid color brush.
+        /// </summary>
+        /// <value>The color to solid color brush.</value>
+        public static IValueConverter ColorToSolidColorBrush => new ValueConverter<Color, SolidColorBrush>(
+            e => new SolidColorBrush(e.Value));
+
+        /// <summary>
+        ///     Gets the color to string.
+        /// </summary>
+        /// <value>The color to string.</value>
+        public static IValueConverter ColorToString => new ValueConverter<Color, string>(
+            e =>
+            {
+                var colors = typeof(Colors);
+                foreach (var prop in colors.GetProperties())
+                    if ((Color) prop.GetValue(null, null) == e.Value)
+                        return prop.Name;
+
+                return e.Value.ToString();
+            });
     }
 }

@@ -4,24 +4,22 @@
       <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:Prompt.ViewModel"
                                    x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 */
 
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using Prompt.Model;
 
 namespace Prompt.ViewModel
 {
+    using View.Commands;
+
     /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
+    ///   This class contains static references to all the view models in
+    ///   the application and provides an entry point for the bindings.
+    ///   <para>See http://www.mvvmlight.net</para>
     /// </summary>
     public class ViewModelLocator
     {
@@ -29,40 +27,20 @@ namespace Prompt.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                SimpleIoc.Default.Register<IDataService, DataService>();
-            }
-
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<RichTextViewModel>();
+            SimpleIoc.Default.Register<EditCommands>();
         }
 
         /// <summary>
-        /// Gets the Main property.
+        ///   Gets the edit commands.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
+        /// <value>The edit commands.</value>
+        public EditCommands EditCommands
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-
-        public RichTextViewModel RichText
-        {
-            get { return ServiceLocator.Current.GetInstance<RichTextViewModel>(); }
+            get { return ServiceLocator.Current.GetInstance<EditCommands>(); }
         }
 
         /// <summary>
-        /// Cleans up all the resources.
+        ///   Cleans up all the resources.
         /// </summary>
         public static void Cleanup()
         {

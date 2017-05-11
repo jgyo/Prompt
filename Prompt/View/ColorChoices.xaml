@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="Prompt.View.ColorChoices"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Prompt.View.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Prompt.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:ColorChoices}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button Focusable="False" Height="30" Width="30" Click="ButtonBase_OnClick" >
+            <Border
+                Width="20"
+                Height="20"
+                Background="{Binding Color, Converter={x:Static converters:Static.ColorToSolidColorBrush}, TargetNullValue=Yelow, FallbackValue=Yelow}"
+                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=ToggleButton}}" />
+        </Button>
+        <RadioButton
+            Grid.Column="1"
+            GroupName="ColorOptions"
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Content="{Binding Color, Converter={x:Static converters:Static.ColorToString}}"
+            IsChecked="{Binding IsChecked}" />
+    </Grid>
+</UserControl>

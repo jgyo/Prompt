@@ -34,16 +34,31 @@ namespace Prompt.View.Converters
     using System.Globalization;
     using System.Windows.Data;
 
+    /// <summary>
+    /// Class ValueConverter.
+    /// </summary>
+    /// <typeparam name="TInput">The type of the t input.</typeparam>
+    /// <typeparam name="TOutput">The type of the t output.</typeparam>
+    /// <seealso cref="System.Windows.Data.IValueConverter" />
     public class ValueConverter<TInput, TOutput> : IValueConverter
     {
         private readonly Func<ConverterParams<TOutput>, TInput> _convertBackFunction;
         private readonly Func<ConverterParams<TInput>, TOutput> _convertFunction;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValueConverter{TInput, TOutput}"/> class.
+        /// </summary>
+        /// <param name="convertFunction">The convert function.</param>
         public ValueConverter(Func<ConverterParams<TInput>, TOutput> convertFunction)
         {
             _convertFunction = convertFunction;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValueConverter{TInput, TOutput}"/> class.
+        /// </summary>
+        /// <param name="convertFunction">The convert function.</param>
+        /// <param name="convertBackFunction">The convert back function.</param>
         public ValueConverter(Func<ConverterParams<TInput>, TOutput> convertFunction,
             Func<ConverterParams<TOutput>, TInput> convertBackFunction)
         {
@@ -51,6 +66,14 @@ namespace Prompt.View.Converters
             _convertBackFunction = convertBackFunction;
         }
 
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             TInput inputValue;
@@ -66,6 +89,14 @@ namespace Prompt.View.Converters
             return _convertFunction(converterParams);
         }
 
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             TOutput outputValue;
@@ -81,19 +112,41 @@ namespace Prompt.View.Converters
             return _convertBackFunction(converterParams);
         }
 
+        /// <summary>
+        /// Creates the specified convert function.
+        /// </summary>
+        /// <param name="convertFunc">The convert function.</param>
+        /// <returns>IValueConverter.</returns>
         public static IValueConverter Create(Func<ConverterParams<TInput>, TOutput> convertFunc)
         {
             return new ValueConverter<TInput, TOutput>(convertFunc);
         }
 
+        /// <summary>
+        /// Creates the specified convert function.
+        /// </summary>
+        /// <param name="convertFunc">The convert function.</param>
+        /// <param name="convertBackFunc">The convert back function.</param>
+        /// <returns>IValueConverter.</returns>
         public static IValueConverter Create(Func<ConverterParams<TInput>, TOutput> convertFunc,
             Func<ConverterParams<TOutput>, TInput> convertBackFunc)
         {
             return new ValueConverter<TInput, TOutput>(convertFunc, convertBackFunc);
         }
 
+        /// <summary>
+        /// Class ConverterParams.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public class ConverterParams<T>
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ConverterParams`1"/> class.
+            /// </summary>
+            /// <param name="value">The value.</param>
+            /// <param name="targetType">Type of the target.</param>
+            /// <param name="parameter">The parameter.</param>
+            /// <param name="culture">The culture.</param>
             public ConverterParams(T value, Type targetType, object parameter, CultureInfo culture)
             {
                 Value = value;
@@ -102,12 +155,28 @@ namespace Prompt.View.Converters
                 Culture = culture;
             }
 
+            /// <summary>
+            /// Gets the culture.
+            /// </summary>
+            /// <value>The culture.</value>
             public CultureInfo Culture { get; }
 
+            /// <summary>
+            /// Gets the parameter.
+            /// </summary>
+            /// <value>The parameter.</value>
             public object Parameter { get; }
 
+            /// <summary>
+            /// Gets the type of the target.
+            /// </summary>
+            /// <value>The type of the target.</value>
             public Type TargetType { get; }
 
+            /// <summary>
+            /// Gets the value.
+            /// </summary>
+            /// <value>The value.</value>
             public T Value { get; }
         }
     }

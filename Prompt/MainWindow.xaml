@@ -7,18 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:Prompt.View"
     Title="MVVM Light Application"
-    Width="300"
-    Height="300"
+    Width="800"
+    Height="400"
     DataContext="{Binding Main, Source={StaticResource Locator}}"
     mc:Ignorable="d ignore">
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Skins/MainSkin.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
 

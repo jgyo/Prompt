@@ -17,8 +17,14 @@ namespace Prompt.View
     /// <summary>
     /// Interaction logic for ColorPicker.xaml
     /// </summary>
+    /// <seealso cref="System.Windows.Window" />
+    /// <seealso cref="System.Windows.Markup.IComponentConnector" />
     public partial class ColorPicker : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorPicker"/> class.
+        /// </summary>
+        /// <param name="current">The current.</param>
         public ColorPicker(Color current)
         {
             InitializeComponent();
@@ -26,18 +32,32 @@ namespace Prompt.View
             SetCurrentValue(SelectedColorProperty, current);
         }
 
+        /// <summary>
+        /// The last color property
+        /// </summary>
         public static readonly DependencyProperty LastColorProperty = DependencyProperty.Register(
             "LastColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
 
+        /// <summary>
+        /// Gets or sets the last color.
+        /// </summary>
+        /// <value>The last color.</value>
         public Color LastColor
         {
             get => (Color) GetValue(LastColorProperty);
             set => SetValue(LastColorProperty, value);
         }
 
+        /// <summary>
+        /// The selected color property
+        /// </summary>
         public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(
             "SelectedColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(default(Color)));
 
+        /// <summary>
+        /// Gets or sets the color of the selected.
+        /// </summary>
+        /// <value>The color of the selected.</value>
         public Color SelectedColor
         {
             get => (Color) GetValue(SelectedColorProperty);

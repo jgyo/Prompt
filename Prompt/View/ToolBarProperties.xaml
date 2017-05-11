@@ -1,0 +1,226 @@
+﻿<Window
+    x:Class="Prompt.View.ToolBarProperties"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cmds="clr-namespace:Prompt.View.Commands"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Prompt.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Tool Bar Properties"
+    Height="449"
+    DataContext="{Binding EditCommands, Source={StaticResource Locator}}"
+    Deactivated="Window_Deactivated"
+    ResizeMode="NoResize"
+    MouseDown="Window_OnMouseDown"
+    ShowInTaskbar="False"
+    SizeToContent="Width"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Grid Background="#FFDCDCDC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Content="Tool Bar Properties" />
+        <Button
+            Width="10"
+            Height="10"
+            Grid.Column="0"
+            Grid.Row="0"
+            Margin="2"
+            HorizontalAlignment="Right"
+            Background="DarkRed"
+            Click="CloseButtonClicked"
+            OverridesDefaultStyle="True">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border
+                                    x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                    <ContentPresenter
+                                        x:Name="contentPresenter"
+                                        Margin="{TemplateBinding Padding}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Focusable="False"
+                                        RecognizesAccessKey="True"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <WrapPanel Grid.Row="1" Orientation="Vertical">
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="/Prompt;component/Images/Open Folder.png"
+                IsChecked="{Binding ShowOpenButton, Mode=TwoWay}"
+                Text="Open file option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Save.png"
+                IsChecked="{Binding ShowSaveButton, Mode=TwoWay}"
+                Text="Save option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Print.png"
+                IsChecked="{Binding ShowPrintButton, Mode=TwoWay}"
+                Text="Print option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator1}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Save as.png"
+                IsChecked="{Binding ShowSaveAsButton, Mode=TwoWay}"
+                Text="Save as option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator1, Mode=TwoWay}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Bold.png"
+                IsChecked="{Binding ShowBoldButton, Mode=TwoWay}"
+                Text="Bold option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Italic.png"
+                IsChecked="{Binding ShowItalicsButton, Mode=TwoWay}"
+                Text="Italics option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Underline.png"
+                IsChecked="{Binding ShowUnderlineButton, Mode=TwoWay}"
+                Text="Underline option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator2, Mode=TwoWay}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Increase Font.png"
+                IsChecked="{Binding ShowIncreaseFontSizeButton, Mode=TwoWay}"
+                Text="Increase size option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Decrease Font.png"
+                IsChecked="{Binding ShowDecreaseFontSizeButton, Mode=TwoWay}"
+                Text="Decrease size option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Text Color.png"
+                IsChecked="{Binding ShowFontColorButton, Mode=TwoWay}"
+                Text="Text color option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Marker Pen.png"
+                IsChecked="{Binding ShowFontHighlightButton, Mode=TwoWay}"
+                Text="Highlight option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator3, Mode=TwoWay}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Cut.png"
+                IsChecked="{Binding ShowCutButton, Mode=TwoWay}"
+                Text="Cut option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Copy.png"
+                IsChecked="{Binding ShowCopyButton, Mode=TwoWay}"
+                Text="Copy option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Paste.png"
+                IsChecked="{Binding ShowPasteButton, Mode=TwoWay}"
+                Text="Paste option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Delete.png"
+                IsChecked="{Binding ShowDeleteButton, Mode=TwoWay}"
+                Text="Delete option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator4, Mode=TwoWay}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Undo.png"
+                IsChecked="{Binding ShowUndoButton, Mode=TwoWay}"
+                Text="Undo option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Redo.png"
+                IsChecked="{Binding ShowRedoButton, Mode=TwoWay}"
+                Text="Redo option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                IsChecked="{Binding ShowSeperator5, Mode=TwoWay}" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Checkmark.png"
+                IsChecked="{Binding ShowSpellCheckButton, Mode=TwoWay}"
+                Text="Spell check option" />
+            <local:ButtonOption
+                Height="30"
+                Margin="4"
+                ImageSource="../Images/Edit Property.png"
+                IsChecked="{Binding ShowPropertiesButton, Mode=TwoWay}"
+                IsEnabled="False"
+                Text="Edit properties option" />
+            <local:ColorChoices Margin="4" Visibility="Hidden" />
+            <TextBlock
+                Height="30"
+                Margin="4"
+                HorizontalAlignment="Center"
+                Text="Highlight Color" />
+            <local:ColorChoices
+                Margin="4"
+                IsChecked="{Binding IsLightGreenChecked, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ToolBarProperties}}"
+                Color="LightGreen" />
+            <local:ColorChoices
+                Margin="4"
+                IsChecked="{Binding IsYellowChecked, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ToolBarProperties}}"
+                Color="Yellow" />
+            <local:ColorChoices
+                Margin="4"
+                IsChecked="{Binding IsLightPinkChecked, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ToolBarProperties}}"
+                Color="LightPink" />
+            <local:ColorChoices
+                Margin="4"
+                IsChecked="{Binding IsPowerBlueChecked, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType=local:ToolBarProperties}}"
+                Color="PowderBlue" />
+        </WrapPanel>
+    </Grid>
+</Window>
