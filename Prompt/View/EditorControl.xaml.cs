@@ -45,6 +45,7 @@ namespace Prompt.View
     using Commands;
     using GalaSoft.MvvmLight.CommandWpf;
     using GalaSoft.MvvmLight.Threading;
+    using JetBrains.Annotations;
     using Microsoft.Win32;
     using Properties;
     using ViewModel;
@@ -59,113 +60,113 @@ namespace Prompt.View
         /// <summary>
         /// The column property
         /// </summary>
-        public static readonly DependencyProperty ColumnProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty ColumnProperty = DependencyProperty.Register(
             "Column", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The commands property
         /// </summary>
-        public static readonly DependencyProperty CommandsProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty CommandsProperty = DependencyProperty.Register(
             "Commands", typeof(EditCommands), typeof(EditorControl), new PropertyMetadata(default(EditCommands)));
 
         /// <summary>
         /// The count of chars property
         /// </summary>
-        public static readonly DependencyProperty CountOfCharsProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty CountOfCharsProperty = DependencyProperty.Register(
             "CountOfChars", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The count of words property
         /// </summary>
-        public static readonly DependencyProperty CountOfWordsProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty CountOfWordsProperty = DependencyProperty.Register(
             "CountOfWords", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The file path property
         /// </summary>
-        public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register(
             "FilePath", typeof(string), typeof(EditorControl), new PropertyMetadata(default(string)));
 
         /// <summary>
         /// The font background color property
         /// </summary>
-        public static readonly DependencyProperty FontBackgroundColorProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty FontBackgroundColorProperty = DependencyProperty.Register(
             "FontBackgroundColor", typeof(SolidColorBrush), typeof(EditorControl),
             new PropertyMetadata(default(SolidColorBrush)));
 
         /// <summary>
         /// The font color property
         /// </summary>
-        public static readonly DependencyProperty FontColorProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty FontColorProperty = DependencyProperty.Register(
             "FontColor", typeof(SolidColorBrush), typeof(EditorControl),
             new PropertyMetadata(default(SolidColorBrush)));
 
         /// <summary>
         /// The highlight color property
         /// </summary>
-        public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register(
             "HighlightColor", typeof(SolidColorBrush), typeof(EditorControl),
             new PropertyMetadata(new SolidColorBrush(Colors.Yellow)));
 
         /// <summary>
         /// The is bold property
         /// </summary>
-        public static readonly DependencyProperty IsBoldProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsBoldProperty = DependencyProperty.Register(
             "IsBold", typeof(bool), typeof(EditorControl), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is insert mode on property
         /// </summary>
-        public static readonly DependencyProperty IsInsertModeOnProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsInsertModeOnProperty = DependencyProperty.Register(
             "IsInsertModeOn", typeof(bool), typeof(EditorControl), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is italics property
         /// </summary>
-        public static readonly DependencyProperty IsItalicsProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsItalicsProperty = DependencyProperty.Register(
             "IsItalics", typeof(bool), typeof(EditorControl), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is modified property
         /// </summary>
-        public static readonly DependencyProperty IsModifiedProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsModifiedProperty = DependencyProperty.Register(
             "IsModified", typeof(bool), typeof(EditorControl),
             new PropertyMetadata(default(bool), IsModifiedPropertyChanged));
 
         /// <summary>
         /// The is selection empty property
         /// </summary>
-        public static readonly DependencyProperty IsSelectionEmptyProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsSelectionEmptyProperty = DependencyProperty.Register(
             "IsSelectionEmpty", typeof(bool), typeof(EditorControl), new PropertyMetadata(true));
 
         /// <summary>
         /// The is underlined property
         /// </summary>
-        public static readonly DependencyProperty IsUnderlinedProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsUnderlinedProperty = DependencyProperty.Register(
             "IsUnderlined", typeof(bool), typeof(EditorControl), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The line count property
         /// </summary>
-        public static readonly DependencyProperty LineCountProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty LineCountProperty = DependencyProperty.Register(
             "LineCount", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The row property
         /// </summary>
-        public static readonly DependencyProperty RowProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty RowProperty = DependencyProperty.Register(
             "Row", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The selection length property
         /// </summary>
-        public static readonly DependencyProperty SelectionLengthProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty SelectionLengthProperty = DependencyProperty.Register(
             "SelectionLength", typeof(int), typeof(EditorControl), new PropertyMetadata(default(int)));
 
         /// <summary>
         /// The text size property
         /// </summary>
-        public static readonly DependencyProperty TextSizeProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty TextSizeProperty = DependencyProperty.Register(
             "TextSize", typeof(double), typeof(EditorControl), new PropertyMetadata(default(double)));
 
         /// <summary>
@@ -392,10 +393,10 @@ namespace Prompt.View
                 OpenNewFile);
             commands.SaveCommand = new RelayCommand(
                 SaveFile,
-                delegate { return IsModified; });
+                () => IsModified);
             commands.SaveAsCommand = new RelayCommand(
                 SaveFileAs,
-                delegate { return IsModified; });
+                () => IsModified);
             commands.SpellCheckCommand = new RelayCommand(
                 ToggleSpellCheck);
             commands.PropertiesCommand = new RelayCommand(
@@ -424,7 +425,9 @@ namespace Prompt.View
 
                 if (File.Exists(dictionaryPath) == false)
                 {
-                    CreatePathIfNecessary(Path.GetDirectoryName(dictionaryPath));
+                    var directoryName = Path.GetDirectoryName(dictionaryPath);
+                    if (directoryName == null) throw new ArgumentNullException(nameof(directoryName));
+                    CreatePathIfNecessary(directoryName);
                     File.AppendAllText(dictionaryPath, null);
                 }
 
@@ -437,7 +440,7 @@ namespace Prompt.View
         /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown" /> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.KeyEventArgs" /> that contains the event data.</param>
-        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        protected override void OnPreviewKeyDown([NotNull] KeyEventArgs e)
         {
             base.OnPreviewKeyDown(e);
 
@@ -452,7 +455,7 @@ namespace Prompt.View
             editorControl?.Commands.DeleteCommand.RaiseCanExecuteChanged();
         }
 
-        private void AddToDictionary(string text)
+        private void AddToDictionary([NotNull] string text)
         {
             var dictionaries = SpellCheck.GetCustomDictionaries(RichTextBox);
             if (dictionaries.Count == 0)
@@ -481,8 +484,7 @@ namespace Prompt.View
                 return;
 
             var brush = textSelection.GetPropertyValue(TextElement.ForegroundProperty) as SolidColorBrush;
-            Color color;
-            color = brush?.Color ?? Colors.Black;
+            var color = brush?.Color ?? Colors.Black;
 
             var colorPicker = new ColorPicker(color);
             colorPicker.ShowDialog();
@@ -495,13 +497,14 @@ namespace Prompt.View
             GetCurrentFormat(textSelection);
         }
 
-        private void CreatePathIfNecessary(string path)
+        private void CreatePathIfNecessary([NotNull] string path)
         {
-            if (!Directory.Exists(path))
-            {
-                CreatePathIfNecessary(Path.GetDirectoryName(path));
-                Directory.CreateDirectory(path);
-            }
+            if (Directory.Exists(path)) return;
+
+            var directoryName = Path.GetDirectoryName(path);
+            if (directoryName == null) throw new InvalidOperationException("GetDirectoryName(path) returned a null.");
+            CreatePathIfNecessary(directoryName);
+            Directory.CreateDirectory(path);
         }
 
         private void DecreaseFontSize()
@@ -537,7 +540,7 @@ namespace Prompt.View
             properties.Show();
         }
 
-        private void GetCountOfWordsAndChars(RichTextBox richTextBox)
+        private void GetCountOfWordsAndChars([NotNull] RichTextBox richTextBox)
         {
             var regex = new Regex("\\b.\\w*?\\b", RegexOptions.Compiled);
             var text = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd).Text;
@@ -546,7 +549,7 @@ namespace Prompt.View
             SetCurrentValue(CountOfCharsProperty, text.Length);
         }
 
-        private void GetCurrentFormat(TextSelection selection)
+        private void GetCurrentFormat([NotNull] TextSelection selection)
         {
             var fontSize = selection.GetPropertyValue(TextElement.FontSizeProperty) is double
                 ? (double) selection.GetPropertyValue(TextElement.FontSizeProperty)
@@ -570,7 +573,7 @@ namespace Prompt.View
             SetCurrentValue(IsInsertModeOnProperty, !Keyboard.IsKeyToggled(Key.Insert));
         }
 
-        private void GetNumberOfLines(RichTextBox richTextBox)
+        private void GetNumberOfLines([NotNull] RichTextBox richTextBox)
         {
             var firstLinePos = richTextBox.Document.ContentStart.GetLineStartPosition(0);
             var actualCount = 1;
@@ -579,7 +582,7 @@ namespace Prompt.View
             SetCurrentValue(LineCountProperty, actualCount + 1);
         }
 
-        private void GetRowAndColumnPositions(RichTextBox richTextBox)
+        private void GetRowAndColumnPositions([NotNull] RichTextBox richTextBox)
         {
             var lineStart = richTextBox.CaretPosition.GetLineStartPosition(0);
             var caretPosition = richTextBox.CaretPosition;
@@ -604,7 +607,7 @@ namespace Prompt.View
             SetCurrentValue(RowProperty, -actualCount + 1);
         }
 
-        private void GetSelectionStats(RichTextBox richTextBox)
+        private void GetSelectionStats([NotNull] RichTextBox richTextBox)
         {
             var selectionIsEmpty = richTextBox.Selection.IsEmpty;
             SetCurrentValue(IsSelectionEmptyProperty, selectionIsEmpty);

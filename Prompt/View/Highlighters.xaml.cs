@@ -39,6 +39,7 @@ namespace Prompt.View
     using System.Windows.Input;
     using System.Windows.Media;
     using Commands;
+    using JetBrains.Annotations;
     using Properties;
 
     /// <summary>
@@ -51,7 +52,7 @@ namespace Prompt.View
         /// <summary>
         /// The selected color property
         /// </summary>
-        public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty SelectedColorProperty = DependencyProperty.Register(
             "SelectedColor", typeof(Color), typeof(Highlighters), new PropertyMetadata(default(Color)));
 
         /// <summary>

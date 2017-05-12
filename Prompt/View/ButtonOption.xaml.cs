@@ -34,6 +34,7 @@ namespace Prompt.View
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Interaction logic for ButtonOption.xaml
@@ -45,19 +46,19 @@ namespace Prompt.View
         /// <summary>
         /// The image source property
         /// </summary>
-        public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(
             "ImageSource", typeof(ImageSource), typeof(ButtonOption), new PropertyMetadata(null));
 
         /// <summary>
         /// The is checked property
         /// </summary>
-        public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty IsCheckedProperty = DependencyProperty.Register(
             "IsChecked", typeof(bool), typeof(ButtonOption), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The text property
         /// </summary>
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text", typeof(string), typeof(ButtonOption), new PropertyMetadata(default(string)));
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace Prompt.View
         /// Gets or sets the image source.
         /// </summary>
         /// <value>The image source.</value>
+        [CanBeNull]
         public ImageSource ImageSource
         {
             get => (ImageSource) GetValue(ImageSourceProperty);
@@ -92,6 +94,7 @@ namespace Prompt.View
         /// Gets or sets the text.
         /// </summary>
         /// <value>The text.</value>
+        [CanBeNull]
         public string Text
         {
             get => (string) GetValue(TextProperty);

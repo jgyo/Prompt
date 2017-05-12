@@ -14,6 +14,7 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Prompt.ViewModel
 {
+    using JetBrains.Annotations;
     using View.Commands;
 
     /// <summary>
@@ -34,10 +35,8 @@ namespace Prompt.ViewModel
         ///   Gets the edit commands.
         /// </summary>
         /// <value>The edit commands.</value>
-        public EditCommands EditCommands
-        {
-            get { return ServiceLocator.Current.GetInstance<EditCommands>(); }
-        }
+        [NotNull]
+        public EditCommands EditCommands => ServiceLocator.Current.GetInstance<EditCommands>();
 
         /// <summary>
         ///   Cleans up all the resources.

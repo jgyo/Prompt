@@ -37,6 +37,7 @@ namespace Prompt.View
     using System.Windows.Input;
     using System.Windows.Media;
     using Commands;
+    using JetBrains.Annotations;
     using Properties;
 
     /// <summary>
@@ -49,34 +50,34 @@ namespace Prompt.View
         /// <summary>
         /// The highlight color property
         /// </summary>
-        public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register(
+        [NotNull] public static readonly DependencyProperty HighlightColorProperty = DependencyProperty.Register(
             "HighlightColor", typeof(Color), typeof(ToolBarProperties), new PropertyMetadata(default(Color)));
 
         /// <summary>
         /// The is light green checked property
         /// </summary>
-        public static readonly DependencyProperty IsLightGreenCheckedProperty =
+        [NotNull] public static readonly DependencyProperty IsLightGreenCheckedProperty =
             DependencyProperty.Register("IsLightGreenChecked", typeof(bool), typeof(ToolBarProperties),
                 new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is light pink checked property
         /// </summary>
-        public static readonly DependencyProperty IsLightPinkCheckedProperty =
+        [NotNull] public static readonly DependencyProperty IsLightPinkCheckedProperty =
             DependencyProperty.Register("IsLightPinkChecked", typeof(bool), typeof(ToolBarProperties),
                 new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is power blue checked property
         /// </summary>
-        public static readonly DependencyProperty IsPowerBlueCheckedProperty =
+        [NotNull] public static readonly DependencyProperty IsPowerBlueCheckedProperty =
             DependencyProperty.Register("IsPowerBlueChecked", typeof(bool), typeof(ToolBarProperties),
                 new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// The is yellow checked property
         /// </summary>
-        public static readonly DependencyProperty IsYellowCheckedProperty =
+        [NotNull] public static readonly DependencyProperty IsYellowCheckedProperty =
             DependencyProperty.Register("IsYellowChecked", typeof(bool), typeof(ToolBarProperties),
                 new PropertyMetadata(default(bool)));
 
@@ -148,9 +149,7 @@ namespace Prompt.View
 
             var binding = new Binding("HighlightColor");
             var editCommands = DataContext as EditCommands;
-            if (editCommands == null)
-                throw new InvalidOperationException("DataContext invalid.");
-            binding.Source = editCommands;
+            binding.Source = editCommands ?? throw new InvalidOperationException("DataContext invalid.");
             binding.Mode = BindingMode.TwoWay;
             BindingOperations.SetBinding(this, HighlightColorProperty, binding);
         }

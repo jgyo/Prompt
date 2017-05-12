@@ -34,6 +34,7 @@ namespace Prompt.View.Converters
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
+    using JetBrains.Annotations;
 
     /// <summary>
     ///     Class Static.
@@ -44,6 +45,7 @@ namespace Prompt.View.Converters
         ///     Gets the bool to collapsed or visible.
         /// </summary>
         /// <value>The bool to collapsed or visible.</value>
+        [NotNull]
         public static IValueConverter BoolToCollapsedOrVisible => new ValueConverter<bool, Visibility>(
             e => e.Value ? Visibility.Collapsed : Visibility.Visible);
 
@@ -51,6 +53,7 @@ namespace Prompt.View.Converters
         ///     Gets the bool to enabled or disabled brush.
         /// </summary>
         /// <value>The bool to enabled or disabled brush.</value>
+        [NotNull]
         public static IValueConverter BoolToEnabledOrDisabledBrush => new ValueConverter<bool, SolidColorBrush>(
             e => e.Value ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.DarkGray));
 
@@ -58,6 +61,7 @@ namespace Prompt.View.Converters
         ///     Gets the bool to visible or collapsed.
         /// </summary>
         /// <value>The bool to visible or collapsed.</value>
+        [NotNull]
         public static IValueConverter BoolToVisibleOrCollapsed => new ValueConverter<bool, Visibility>(
             e => e.Value ? Visibility.Visible : Visibility.Collapsed);
 
@@ -65,6 +69,7 @@ namespace Prompt.View.Converters
         ///     Gets the color to solid color brush.
         /// </summary>
         /// <value>The color to solid color brush.</value>
+        [NotNull]
         public static IValueConverter ColorToSolidColorBrush => new ValueConverter<Color, SolidColorBrush>(
             e => new SolidColorBrush(e.Value));
 
@@ -72,6 +77,7 @@ namespace Prompt.View.Converters
         ///     Gets the color to string.
         /// </summary>
         /// <value>The color to string.</value>
+        [NotNull]
         public static IValueConverter ColorToString => new ValueConverter<Color, string>(
             e =>
             {
