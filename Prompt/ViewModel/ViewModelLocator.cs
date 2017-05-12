@@ -28,7 +28,9 @@ namespace Prompt.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            // mvvmRegisterType's
             SimpleIoc.Default.Register<EditCommands>();
+            SimpleIoc.Default.Register<TeleprompterViewModel>();
         }
 
         /// <summary>
@@ -37,6 +39,8 @@ namespace Prompt.ViewModel
         /// <value>The edit commands.</value>
         [NotNull]
         public EditCommands EditCommands => ServiceLocator.Current.GetInstance<EditCommands>();
+
+        public TeleprompterViewModel Teleprompter => ServiceLocator.Current.GetInstance<TeleprompterViewModel>();
 
         /// <summary>
         ///   Cleans up all the resources.
