@@ -6,16 +6,59 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Prompt.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="415"
+    d:DesignWidth="460"
     DataContext="{Binding Teleprompter, Source={StaticResource Locator}}"
     mc:Ignorable="d">
     <Grid>
         <RichTextBox
+            x:Name="RichTextBox"
+            Margin="0"
+            Padding="10"
             Background="{Binding BackgroundColor, Converter={x:Static converters:Static.ColorToSolidColorBrush}}"
+            Block.LineHeight="{Binding LineSize}"
+            BorderThickness="0"
             FontFamily="{Binding FontFamily}"
             FontSize="{Binding FontSize}"
-            Foreground="{Binding ForegroundColor, Converter={x:Static converters:Static.ColorToSolidColorBrush}}" />
-
+            Foreground="{Binding ForegroundColor, Converter={x:Static converters:Static.ColorToSolidColorBrush}}"
+            IsReadOnly="True">
+            <RichTextBox.Document>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run>Welcome to Prompt, the free, as in &quot;costs you nothing,&quot; teleprompter.</Run>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox.Document>
+        </RichTextBox>
+        <Polygon
+            x:Name="LeftPoly"
+            Width="{Binding LineSize}"
+            Height="{Binding LineSize}"
+            Margin="{Binding EyelineTop, Converter={x:Static converters:Static.DoubleToTopMargin}}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Fill="#FF888888"
+            MouseDown="Polygon_MouseDown"
+            Opacity="{Binding EyelineOpacity}"
+            Points="0 0, 0 1, 1 0.5"
+            Stretch="Fill"
+            Stroke="{Binding BackgroundColor, Converter={x:Static converters:Static.ColorToSolidColorBrush}}"
+            StrokeThickness="2"
+            Visibility="{Binding EyelinePosition, Converter={x:Static converters:Static.EyelinePositionToVisibility}, ConverterParameter=Left}" />
+        <Polygon
+            x:Name="RightPoly"
+            Width="{Binding LineSize}"
+            Height="{Binding LineSize}"
+            Margin="{Binding EyelineTop, Converter={x:Static converters:Static.DoubleToTopMargin}}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Fill="#FF888888"
+            MouseDown="Polygon_MouseDown"
+            Opacity="{Binding EyelineOpacity}"
+            Points="1 0, 1 1, 0 0.5"
+            Stretch="Fill"
+            Stroke="{Binding BackgroundColor, Converter={x:Static converters:Static.ColorToSolidColorBrush}}"
+            StrokeThickness="2"
+            Visibility="{Binding EyelinePosition, Converter={x:Static converters:Static.EyelinePositionToVisibility}, ConverterParameter=Right}" />
     </Grid>
 </UserControl>

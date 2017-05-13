@@ -31,16 +31,29 @@
 
 namespace Prompt.View.Converters
 {
+    using System;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
     using JetBrains.Annotations;
+    using ViewModel;
 
     /// <summary>
     ///     Class Static.
     /// </summary>
     public static class Static
     {
+        public static EyelinePosition ToEyelinePosition(this string value)
+        {
+            return Enum.TryParse(value, out EyelinePosition result) ? result : EyelinePosition.Both;
+        }
+
+        public static IValueConverter EyelinePositionToBool => new ValueConverter<EyelinePosition, bool>(
+            e => e.Value == (EyelinePosition) e.Parameter,
+            e => e.Value ? (EyelinePosition) e.Parameter : Binding.DoNothing); 
+        
+
         /// <summary>
         ///     Gets the bool to collapsed or visible.
         /// </summary>
@@ -88,5 +101,28 @@ namespace Prompt.View.Converters
 
                 return e.Value.ToString();
             });
+
+        public static IValueConverter EyelinePositionToVisibility => new ValueConverter<EyelinePosition, Visibility>(
+            e =>
+            {
+                Debug.Assert(e != null);
+                if (e.Parameter == null)
+                    throw new ArgumentException("Parameter");
+
+                Debug.Assert(e.Parameter is string);
+
+                var o = (EyelinePosition) Enum.Parse(typeof(EyelinePosition), (string) e.Parameter);
+                return e.Value.HasFlag(o) ? Visibility.Visible : Visibility.Hidden;
+            });
+
+        public static IValueConverter MultiplierConverter => new ValueConverter<double, double>(e =>
+        {
+            Debug.Assert(e.Parameter is string);
+            if (e.Parameter != null) return e.Value * double.Parse((string) e.Parameter);
+            return e.Value * 2.0;
+        });
+
+        public static IValueConverter DoubleToTopMargin => new ValueConverter<double, Thickness>(
+            e => new Thickness(0, e.Value, 0, 0));
     }
 }
