@@ -33,8 +33,13 @@ namespace Prompt.ViewModel
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Windows;
     using System.Windows.Media;
     using GalaSoft.MvvmLight;
+    using Properties;
+    using View.Commands;
+    using View.Converters;
 
     public class TeleprompterViewModel : ViewModelBase
     {
@@ -45,6 +50,7 @@ namespace Prompt.ViewModel
 
         private EyelinePosition _eyelinePosition;
 
+        private double _eyelineTop;
         private FontFamily _fontFamily;
 
         private double _fontSize;
@@ -55,7 +61,7 @@ namespace Prompt.ViewModel
 
         private bool _isPrompting;
         private bool _isTalentWindowOpened;
-        private double _lineSpacing;
+        private double _lineSize;
 
         private TimeSpan _timeRemaining;
 
@@ -65,6 +71,22 @@ namespace Prompt.ViewModel
             foreach (var family in Fonts.SystemFontFamilies)
                 if (family.Baseline < 2)
                     FontFamilies.Add(family);
+            FontFamilies.Sort((a, b) => String.Compare(a.ToString(), b.ToString(), StringComparison.Ordinal));
+
+            var locator = Application.Current.FindResource("Locator") as ViewModelLocator;
+            if (locator == null) throw new ArgumentNullException(nameof(locator));
+            Commands = locator.ControllerCommands;
+
+            BackgroundColor = Settings.Default.TeleprompterBackground;
+            ForegroundColor = Settings.Default.TeleprompterForeground;
+            FontSize = Settings.Default.TeleprompterFontSize;
+            FontFamily = Settings.Default.TeleprompterFont;
+            EyelineOpacity = Settings.Default.EyelineOpacity;
+            LineSize = Settings.Default.TeleprompterLineSize;
+            IsMirrored = Settings.Default.TeleprompterIsMirrored;
+            EyelineTop = Settings.Default.EyelineTop;
+            EyelinePosition = Settings.Default.EyelinePosition.ToEyelinePosition();
+            PropertyChanged += TeleprompterViewModel_PropertyChanged;
         }
 
         public Color BackgroundColor
@@ -72,6 +94,8 @@ namespace Prompt.ViewModel
             get => _backgroundColor;
             set => Set(ref _backgroundColor, value);
         }
+
+        public ControllerCommands Commands { get; }
 
         public TimeSpan ElapsedTime
         {
@@ -89,6 +113,12 @@ namespace Prompt.ViewModel
         {
             get => _eyelinePosition;
             set => Set(ref _eyelinePosition, value);
+        }
+
+        public double EyelineTop
+        {
+            get => _eyelineTop;
+            set => Set(ref _eyelineTop, value);
         }
 
         public List<FontFamily> FontFamilies { get; }
@@ -129,16 +159,26 @@ namespace Prompt.ViewModel
             set => Set(ref _isTalentWindowOpened, value);
         }
 
-        public double LineSpacing
+        public double LineSize
         {
-            get => _lineSpacing;
-            set => Set(ref _lineSpacing, value);
+            get => _lineSize;
+            set => Set(ref _lineSize, value);
         }
 
         public TimeSpan TimeRemaining
         {
             get => _timeRemaining;
             set => Set(ref _timeRemaining, value);
+        }
+
+        private void TeleprompterViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "FontSize":
+                    LineSize = Math.Max(FontSize, Math.Min(LineSize, FontSize * 2.5));
+                    break;
+            }
         }
     }
 }
