@@ -31,8 +31,11 @@
 namespace Prompt.View.Converters
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Windows.Data;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Class ValueConverter.
@@ -42,7 +45,7 @@ namespace Prompt.View.Converters
     /// <seealso cref="System.Windows.Data.IValueConverter" />
     public class ValueConverter<TInput, TOutput> : IValueConverter
     {
-        private readonly Func<ConverterParams<TOutput>, TInput> _convertBackFunction;
+        private readonly Func<ConverterParams<TOutput>, object> _convertBackFunction;
         private readonly Func<ConverterParams<TInput>, TOutput> _convertFunction;
 
         /// <summary>
@@ -60,7 +63,7 @@ namespace Prompt.View.Converters
         /// <param name="convertFunction">The convert function.</param>
         /// <param name="convertBackFunction">The convert back function.</param>
         public ValueConverter(Func<ConverterParams<TInput>, TOutput> convertFunction,
-            Func<ConverterParams<TOutput>, TInput> convertBackFunction)
+            Func<ConverterParams<TOutput>, object> convertBackFunction)
         {
             _convertFunction = convertFunction;
             _convertBackFunction = convertBackFunction;
@@ -85,7 +88,7 @@ namespace Prompt.View.Converters
             if (!targetType.IsAssignableFrom(typeof(TOutput)))
                 return value;
 
-            var converterParams = new ConverterParams<TInput>(inputValue, targetType, parameter, culture);
+            var converterParams = new ConverterParams<TInput>(inputValue, parameter, culture);
             return _convertFunction(converterParams);
         }
 
@@ -108,7 +111,7 @@ namespace Prompt.View.Converters
             if (!targetType.IsAssignableFrom(typeof(TInput)))
                 return value;
 
-            var converterParams = new ConverterParams<TOutput>(outputValue, targetType, parameter, culture);
+            var converterParams = new ConverterParams<TOutput>(outputValue, parameter, culture);
             return _convertBackFunction(converterParams);
         }
 
@@ -129,7 +132,7 @@ namespace Prompt.View.Converters
         /// <param name="convertBackFunc">The convert back function.</param>
         /// <returns>IValueConverter.</returns>
         public static IValueConverter Create(Func<ConverterParams<TInput>, TOutput> convertFunc,
-            Func<ConverterParams<TOutput>, TInput> convertBackFunc)
+            Func<ConverterParams<TOutput>, object> convertBackFunc)
         {
             return new ValueConverter<TInput, TOutput>(convertFunc, convertBackFunc);
         }
@@ -147,10 +150,9 @@ namespace Prompt.View.Converters
             /// <param name="targetType">Type of the target.</param>
             /// <param name="parameter">The parameter.</param>
             /// <param name="culture">The culture.</param>
-            public ConverterParams(T value, Type targetType, object parameter, CultureInfo culture)
+            public ConverterParams(T value, object parameter, CultureInfo culture)
             {
                 Value = value;
-                TargetType = targetType;
                 Parameter = parameter;
                 Culture = culture;
             }
@@ -159,25 +161,71 @@ namespace Prompt.View.Converters
             /// Gets the culture.
             /// </summary>
             /// <value>The culture.</value>
+            [CanBeNull]
             public CultureInfo Culture { get; }
 
             /// <summary>
             /// Gets the parameter.
             /// </summary>
             /// <value>The parameter.</value>
+            [CanBeNull]
             public object Parameter { get; }
-
-            /// <summary>
-            /// Gets the type of the target.
-            /// </summary>
-            /// <value>The type of the target.</value>
-            public Type TargetType { get; }
 
             /// <summary>
             /// Gets the value.
             /// </summary>
             /// <value>The value.</value>
+            [CanBeNull]
             public T Value { get; }
+        }
+    }
+
+    public class MultiValueConverter<TInput, TOutput> : IMultiValueConverter
+    {
+        private readonly Func<MultiValueConverterParams<TInput>, TOutput> _convertFunction;
+
+        public MultiValueConverter(Func<MultiValueConverterParams<TInput>, TOutput> convertFunction)
+        {
+            _convertFunction = convertFunction;
+        }
+
+        public object Convert([NotNull] object[] values, [NotNull] Type targetType, [CanBeNull] object parameter,
+            [CanBeNull] CultureInfo culture)
+        {
+            if(values.Length == 0)
+                return default(TOutput);
+
+            if(values.Any(e => e.GetType() != typeof(TInput)))
+                return default(TOutput);
+
+            if (targetType != typeof(TOutput))
+                return null;
+
+            return _convertFunction(new MultiValueConverterParams<TInput>(values, parameter, culture));
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class MultiValueConverterParams<Tinput>
+    {
+        public List<Tinput> Values { get; }
+        public object Parameter { get; }
+        public CultureInfo Culture { get; }
+
+        public MultiValueConverterParams(object[] values, object parameter, CultureInfo culture)
+        {
+            Values  = new List<Tinput>();
+            foreach (var value in values)
+            {
+                Values.Add((Tinput)value);
+            }
+
+            this.Parameter = parameter;
+            this.Culture = culture;
         }
     }
 }
