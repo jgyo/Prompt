@@ -7,14 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:view="clr-namespace:Prompt.View"
     Title="MVVM Light Application"
-    Width="245.083"
-    Height="701.67"
-    DataContext="{Binding Main, Source={StaticResource Locator}}"
+    Width="850"
+    Height="695"
     mc:Ignorable="d ignore">
 
     <Grid x:Name="LayoutRoot">
-
-       <view:TeleprompterControl></view:TeleprompterControl>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <view:TeleprompterControl />
+        <view:Teleprompter Grid.Column="1" />
     </Grid>
 </Window>

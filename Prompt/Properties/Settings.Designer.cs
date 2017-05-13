@@ -336,5 +336,113 @@ namespace Prompt.Properties {
                 this["HighlightColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF000000")]
+        public global::System.Windows.Media.Color TeleprompterBackground {
+            get {
+                return ((global::System.Windows.Media.Color)(this["TeleprompterBackground"]));
+            }
+            set {
+                this["TeleprompterBackground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
+        public global::System.Windows.Media.Color TeleprompterForeground {
+            get {
+                return ((global::System.Windows.Media.Color)(this["TeleprompterForeground"]));
+            }
+            set {
+                this["TeleprompterForeground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
+        public global::System.Windows.Media.FontFamily TeleprompterFont {
+            get {
+                return ((global::System.Windows.Media.FontFamily)(this["TeleprompterFont"]));
+            }
+            set {
+                this["TeleprompterFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public double TeleprompterFontSize {
+            get {
+                return ((double)(this["TeleprompterFontSize"]));
+            }
+            set {
+                this["TeleprompterFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public double TeleprompterLineSize {
+            get {
+                return ((double)(this["TeleprompterLineSize"]));
+            }
+            set {
+                this["TeleprompterLineSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public double EyelineOpacity {
+            get {
+                return ((double)(this["EyelineOpacity"]));
+            }
+            set {
+                this["EyelineOpacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TeleprompterIsMirrored {
+            get {
+                return ((bool)(this["TeleprompterIsMirrored"]));
+            }
+            set {
+                this["TeleprompterIsMirrored"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public double EyelineTop {
+            get {
+                return ((double)(this["EyelineTop"]));
+            }
+            set {
+                this["EyelineTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Both")]
+        public string EyelinePosition {
+            get {
+                return ((string)(this["EyelinePosition"]));
+            }
+            set {
+                this["EyelinePosition"] = value;
+            }
+        }
     }
 }

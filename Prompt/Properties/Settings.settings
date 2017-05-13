@@ -83,5 +83,32 @@
     <Setting Name="HighlightColor" Type="System.Windows.Media.Color" Scope="User">
       <Value Profile="(Default)">#FFFFFF00</Value>
     </Setting>
+    <Setting Name="TeleprompterBackground" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FF000000</Value>
+    </Setting>
+    <Setting Name="TeleprompterForeground" Type="System.Windows.Media.Color" Scope="User">
+      <Value Profile="(Default)">#FFFFFFFF</Value>
+    </Setting>
+    <Setting Name="TeleprompterFont" Type="System.Windows.Media.FontFamily" Scope="User">
+      <Value Profile="(Default)">Arial</Value>
+    </Setting>
+    <Setting Name="TeleprompterFontSize" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="TeleprompterLineSize" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
+    <Setting Name="EyelineOpacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="TeleprompterIsMirrored" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EyelineTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="EyelinePosition" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Both</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

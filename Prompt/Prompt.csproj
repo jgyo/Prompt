@@ -93,6 +93,7 @@
     <Compile Include="View\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Commands\ControllerCommands.cs" />
     <Compile Include="View\Commands\EditCommands.cs" />
     <Compile Include="View\Converters\Static.cs" />
     <Compile Include="View\Converters\ValueConverter.cs" />
